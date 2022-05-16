@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import Home from "./Home";
+import Login from "./Login";
+import SignUp from "./SignUp";
 
 const Navbar = () => {
+  const [active, setActive] = useState("home");
   return (
     <>
       <Nav>
         <div className="brand">
-          <div className="container">
+          <div onClick={() => setActive("home")}className="container"
+          >
             <img src={logo} alt="" />
             Kamıon
           </div>
@@ -23,10 +28,15 @@ const Navbar = () => {
         </ul>
         <div>
           {" "}
-          <button>Log In</button>
-          <button>Sıgn Up</button>
+          <button onClick={() => setActive("Login")}>Log In</button>
+          <button onClick={() => setActive("SignUp")}>Sıgn Up</button>
         </div>
       </Nav>
+      <div>
+        {active === "SignUp" && <SignUp />}
+        {active === "Login" && <Login />}
+        {active === "home" && <Home />}
+      </div>
     </>
   );
 };
@@ -76,6 +86,7 @@ const Nav = styled.nav`
   button {
     padding: 0.5rem 1rem;
     cursor: pointer;
+    margin-left: 0.2rem;
     border-radius: 1rem;
     border: none;
     color: white;
