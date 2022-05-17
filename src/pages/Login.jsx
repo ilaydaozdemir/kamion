@@ -25,7 +25,12 @@ const Login = () => {
               Password
             </label>
             <br />
-            <input className="input"  type="password" id="password" name="password" />
+            <input
+              className="input"
+              type="password"
+              id="password"
+              name="password"
+            />
           </div>
 
           <input className="submit" type="submit" value="Submit" />
@@ -36,6 +41,7 @@ const Login = () => {
 };
 
 export default Login;
+
 const LoginForm = styled.div`
   position: relative;
   margin-top: 2rem;
@@ -70,9 +76,9 @@ const LoginForm = styled.div`
       }
       color: white;
       font-size: large;
-    
-      .input{
-          padding: 0.3rem;
+
+      .input {
+        padding: 0.3rem;
         border-radius: 0.3rem;
         border: none;
       }
