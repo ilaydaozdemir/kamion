@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import httpClient from "../http-client";
 import loginBackground from "../assets/loginBc.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submit = () => {
+    const data = { username, password };
+    httpClient
+      .post("/api/shipper/login", data)
+      .then((response) => {
+        // save user data to local storage
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+        // navigate to list carrier page
+        navigate("/list-carrier");
+      })
+      .catch((error) => {
+        alert("Username or password is wrong!");
+      });
+  };
+
   return (
     <LoginForm className="loginForm">
       <div className="background">
@@ -17,7 +38,12 @@ const Login = () => {
               Username
             </label>
             <br />
-            <input className="input" type="text" />
+            <input
+              value={username}
+              className="input"
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
           <div>
             {" "}
@@ -26,14 +52,21 @@ const Login = () => {
             </label>
             <br />
             <input
+              value={password}
               className="input"
               type="password"
               id="password"
               name="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <input className="submit" type="submit" value="Submit" />
+          <input
+            className="submit"
+            type="submit"
+            value="Submit"
+            onClick={submit}
+          />
         </div>
       </div>
     </LoginForm>
