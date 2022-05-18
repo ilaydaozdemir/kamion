@@ -25,6 +25,12 @@ export default Footer;
 const FooterSection = styled.footer`
   text-align: center;
   padding-top: 0.35rem;
+  position: absolute;
+  bottom: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
   .icon {
     font-size: 1.5rem;
     color: inherit;
