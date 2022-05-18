@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import signUpBackground from "../assets/SignupBc.jpg";
+import httpClient from "../http-client";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [errors, setErrors] = useState(null);
+
+  const submit = () => {
+
+    const data = { username, password, first_name, last_name, phone, email };
+    httpClient
+      .post("/api/shipper/register", data)
+      .then((response) => {
+        setErrors(null);
+        alert("Sign Up completed");
+        navigate("/login");
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        setErrors(error.response.data.errors);
+      });
+  };
+
   return (
     <SignUpForm className="signupForm">
       <div className="background">
@@ -18,43 +48,15 @@ const SignUp = () => {
                 Username
               </label>
               <br />
-              <input className="input" type="text" />
-            </div>
-            <div>
-              {" "}
-              <label className="text" htmlFor="text">
-                Phone
-              </label>
-              <br />
               <input
+                value={username}
                 className="input"
-                type="tel"
-                placeholder="90XXXXXXXXXX"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                required
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
               />
-            </div>
-            <div>
-              <label className="firstname" htmlFor="fname">
-                Fisrt Name
-              </label>
-              <br />
-              <input className="input" type="text" id="fname" name="fname" />
-            </div>
-            <div>
-              <label className="lastname" htmlFor="lname">
-                Last Name
-              </label>
-              <br />
-              <input className="input" type="text" id="lname" name="lname" />
-            </div>
-            <div>
-              {" "}
-              <label className="email" htmlFor="email">
-                Email
-              </label>
-              <br />
-              <input className="input" type="email" id="email" name="email" />
+              <div className="error-container">
+                {errors?.username && <p>{errors.username.join(',')}</p>}
+              </div>
             </div>
             <div>
               {" "}
@@ -63,13 +65,94 @@ const SignUp = () => {
               </label>
               <br />
               <input
+                value={password}
                 className="input"
                 type="password"
                 id="password"
                 name="password"
+                onChange={(e) => setPassword(e.target.value)}
               />
+              <div className="error-container">
+                {errors?.password && <p>{errors.password.join(',')}</p>}
+              </div>
             </div>
-            <input className="submit" type="submit" value="Submit" />
+            <div>
+              <label className="firstname" htmlFor="fname">
+                Fisrt Name
+              </label>
+              <br />
+              <input
+                value={first_name}
+                className="input"
+                type="text"
+                id="fname"
+                name="fname"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <div className="error-container">
+                {errors?.first_name && <p>{errors.first_name.join(',')}</p>}
+              </div>
+            </div>
+            <div>
+              <label className="lastname" htmlFor="lname">
+                Last Name
+              </label>
+              <br />
+              <input
+                value={last_name}
+                className="input"
+                type="text"
+                id="lname"
+                name="lname"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <div className="error-container">
+                {errors?.last_name && <p>{errors.last_name.join(',')}</p>}
+              </div>
+            </div>
+            <div>
+              {" "}
+              <label className="text" htmlFor="text">
+                Phone
+              </label>
+              <br />
+              <input
+                value={phone}
+                className="input"
+                type="tel"
+                placeholder="90XXXXXXXXXX"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <div className="error-container">
+                {errors?.phone && <p>{errors.phone.join(',')}</p>}
+              </div>
+            </div>
+            <div>
+              {" "}
+              <label className="email" htmlFor="email">
+                Email
+              </label>
+              <br />
+              <input
+                value={email}
+                className="input"
+                type="email"
+                id="email"
+                name="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <div className="error-container">
+                {errors?.email && <p>{errors.email.join(',')}</p>}
+              </div>
+            </div>
+
+            <input
+              className="submit"
+              type="submit"
+              value="Submit"
+              onClick={submit}
+            />
           </div>
         </div>
       </div>
