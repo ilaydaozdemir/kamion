@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ImUserPlus } from "react-icons/im";
-
 import homeImage from "../assets/Home.jpg";
 
-
 const Home = () => {
-  const [active, setActive] = useState("");
   return (
     <>
       {" "}
@@ -22,9 +18,6 @@ const Home = () => {
               fiyat al, süreçlerini hızlandır, güvenilir yük taşıyanlar ile
               çalış.
             </p>
-            <div className="add">
-              <ImUserPlus onClick={() => setActive("AddPersonModal")} />
-            </div>
           </div>
         </div>
       </Section>
@@ -73,20 +66,6 @@ const Section = styled.section`
         letter-spacing: 0.1rem;
         margin-top: 1.5rem;
         font-size: 1.2rem;
-      }
-      .add {
-        position: absolute;
-        top: 34rem;
-        right: 1rem;
-        font-size: 2rem;
-        padding: 0.4rem;
-        border-top: 1px solid #88ce88;
-        border-radius: 50%;
-        &:hover {
-          color: #45d745;
-          opacity: 0.8;
-          cursor: pointer;
-        }
       }
     }
     @media screen and (min-width: 280px) and (max-width: 960px) {
