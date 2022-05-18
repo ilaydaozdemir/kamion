@@ -38,7 +38,7 @@ const ListCarrier = () => {
     return (
       <div>
         <h1>List Carriers</h1>
-        <Link to="add-carrier">Add Carrier</Link>
+        <Link to="/add-carrier">Add Carrier</Link>
         <table>
           <thead>
             <tr>
